@@ -17,6 +17,7 @@ export default () => {
     });
 
     // ROUTES
+    require('../app/routes/base.routes')(app)
     require('../app/routes/user.routes')(app);
     return app;
 }
