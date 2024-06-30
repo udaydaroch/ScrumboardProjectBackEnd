@@ -1,4 +1,4 @@
-const sql = require('../connection');
+const sql = require('../../connection');
 
 async function getUsers() {
     return await sql`SELECT * FROM users`;
