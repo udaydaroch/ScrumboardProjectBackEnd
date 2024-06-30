@@ -1,14 +1,17 @@
 // index.js
-
-// Import required modules
 const express = require('express');
+const getUsers = require('./app.js');
 
-// Create an Express application
 const app = express();
 
-// Define a simple endpoint
-app.get('/', (req, res) => {
-    res.send('Hello, World!');
+app.get('/users', async (req, res) => {
+    try {
+        const users = await getUsers();
+        res.json(users);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'An error occurred while fetching users' });
+    }
 });
 
 const port = 3000;
