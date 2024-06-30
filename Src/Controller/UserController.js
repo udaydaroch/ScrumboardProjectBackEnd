@@ -1,12 +1,28 @@
 const getUsers = require('../Model/UserModel');
-async function getUserList(req, res) {
-    try {
-        const users = await getUsers();
-        res.json(users);
-        res.status(200);
-    } catch (err) {
-        res.status(500).json({error: err.message});
+const {randomBytes} = require("node:crypto");
+const user = require("../Model/UserModel");
+
+async function login (req, res) {
+    const {email, password} = req.body;
+    const userInfo = await user.findByEmail(email);
+    if (!userInfo) {
+        res.status(401).json({error: "Invalid email or password"});
+        return;
     }
+    if (userInfo.password !== password) {
+        res.status(401).json({error: "Invalid email or password"});
+        return;
+    }
+
+    const token = generateRandomToken();
+    await user.updateToken(email, token);
+    res.status(200).json({userId: userInfo.id, "token": token, isAdmin: userInfo.isAdmin});
 }
 
-module.exports = getUserList;
+function generateRandomToken() {
+    const value = randomBytes(16);
+    return value.toString('hex');
+}
+
+
+module.exports = {login};
