@@ -1,6 +1,7 @@
 // api/login.js
 const { findByEmail, updateToken } = require('../Src/Model/UserModel');
 const { randomBytes } = require('crypto');
+const cors = require('../Src/CorsManagement/Cors');
 
 async function login (req, res) {
     const { email, password } = req.body;
@@ -25,9 +26,11 @@ function generateRandomToken() {
 }
 
 module.exports = (req, res) => {
-    if (req.method === 'POST') {
-        login(req, res);
-    } else {
-        res.status(405).send('Method Not Allowed');
-    }
+    cors(req, res, () => {
+        if (req.method === 'POST') {
+            login(req, res);
+        } else {
+            res.status(405).send('Method Not Allowed');
+        }
+    });
 };
