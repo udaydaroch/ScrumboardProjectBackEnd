@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "express": "^4.19.2",
+    "node": "^20.15.0"
+  },
+  "main": "index.js",
+  "engines": {
+    "node": "20.15.0"
+  },
+    "scripts": {
+        "start": "node index.js"
+    }
+}
