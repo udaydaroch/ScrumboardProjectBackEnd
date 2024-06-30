@@ -7,7 +7,7 @@
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
     "prestart": "npm run build",
-    "start": "node .",
+    "start": "node src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Morgan English",
