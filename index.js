@@ -6,6 +6,10 @@ const app = express();
 app.use(cors); // Use cors middleware first
 app.use(userRoutes); // Then use userRoutes middleware
 
+app.get('/', (req, res) => {
+    res.send('I am here');
+});
+
 const port = process.env.PORT || 3000;
 app.listen(port, () =>
     console.log(`Server is running on http://localhost:${port}`)
