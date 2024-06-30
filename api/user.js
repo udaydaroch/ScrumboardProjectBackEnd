@@ -1,9 +1,10 @@
-const {randomBytes} = require("node:crypto");
-const user = require("../Model/UserModel");
+// api/login.js
+const { findByEmail, updateToken } = require('../Src/Model/UserModel');
+const { randomBytes } = require('crypto');
 
 async function login (req, res) {
-    const {email, password} = req.body;
-    const userInfo = await user.findByEmail(email);
+    const { email, password } = req.body;
+    const userInfo = await findByEmail(email);
     if (!userInfo) {
         res.status(401).json({error: "Invalid email or password"});
         return;
@@ -14,7 +15,7 @@ async function login (req, res) {
     }
 
     const token = generateRandomToken();
-    await user.updateToken(email, token);
+    await updateToken(email, token);
     res.status(200).json({userId: userInfo.id, "token": token, isAdmin: userInfo.isAdmin});
 }
 
@@ -23,5 +24,10 @@ function generateRandomToken() {
     return value.toString('hex');
 }
 
-
-module.exports = {login};
+module.exports = (req, res) => {
+    if (req.method === 'POST') {
+        login(req, res);
+    } else {
+        res.status(405).send('Method Not Allowed');
+    }
+};
