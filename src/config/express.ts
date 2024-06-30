@@ -2,7 +2,6 @@ import express from "express"
 import bodyParser from "body-parser"
 import allowCrossOriginRequestsMiddleware from "../app/middleware/cors.middleware"
 import Logger from "./logger"
-import {rootUrl} from "../app/routes/base.routes";
 
 export default () => {
     const app = express();
