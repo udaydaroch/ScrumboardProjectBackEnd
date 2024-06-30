@@ -21,14 +21,6 @@ export default () => {
         next();
     });
 
-    app.get('/heartbeat', (req, res) => {
-        res.send({'message': 'I\'m alive!'});
-    });
-
-    app.get(rootUrl + '/heartbeat', (req, res) => {
-        res.send({'message': 'I\'m alive!'});
-    });
-
     // ROUTES
     require('../app/routes/user.routes')(app);
     return app;
