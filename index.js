@@ -1,7 +1,7 @@
 // index.js
 
 // Import required modules
-import express from 'express';
+const express = require('express');
 
 // Create an Express application
 const app = express();
