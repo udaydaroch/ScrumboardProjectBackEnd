@@ -12,12 +12,8 @@ export default () => {
     app.use(bodyParser.raw({type: 'text/plain'}));
     app.use(bodyParser.raw({type: ['image/*'], limit: '5mb'}));
 
-    // Debug
-    app.use((req, res, next) => {
-        if(req.path !== '/'){
-            Logger.http(`##### ${req.method} ${req.path} #####`);
-        }
-        next();
+    app.use('*', (req, res) => {
+        res.status(404).send('Page not found');
     });
 
     // ROUTES
