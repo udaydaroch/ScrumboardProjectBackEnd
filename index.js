@@ -1,32 +1,20 @@
 // index.js
-import express from 'express';
-import bodyParser from 'body-parser';
-import {connect, getPool} from "./db";
 
+// Import required modules
+import express from 'express';
+
+// Create an Express application
 const app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-connect();
-
-app.get('/api/users', async (req, res) => {
-    try {
-        const sql = getPool();
-        const { rows } = await sql`SELECT * FROM users`;
-        res.json(rows);
-    } catch (error) {
-        Logger.error(`Error querying users: ${error.message}`);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
+// Define a simple endpoint
+app.get('/', (req, res) => {
+    res.send('Hello, World!');
 });
 
-app.use((err, req, res, next) => {
-    Logger.error(err.stack);
-    res.status(500).send('Something broke!');
-});
-
+// Define port number
 const PORT = process.env.PORT || 3000;
+
+// Start the server
 app.listen(PORT, () => {
-    Logger.info(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
