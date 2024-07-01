@@ -5,11 +5,11 @@ async function login (req, res) {
     const {email, password} = req.body;
     const userInfo = await user.findByEmail(email);
     if (!userInfo) {
-        res.status(401).json({error: "Invalid email or password"});
+        res.status(401).json({error: "Invalid email"});
         return;
     }
     if (userInfo.password !== password) {
-        res.status(401).json({error: "Invalid email or password"});
+        res.status(401).json({error: "Invalid password"});
         return;
     }
 
