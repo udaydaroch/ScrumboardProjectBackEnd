@@ -4,7 +4,7 @@ const cors = require('cors');
 const app = express();
 
 app.use(cors({
-    origin: 'https://scrumboard-project.vercel.app',
+    origin: 'https://scrumboard-project-cbsb6q3lj-udaydarochs-projects.vercel.app/',
     methods: 'GET,POST,PUT,DELETE',
     allowedHeaders: 'Content-Type,Authorization'
 }));
