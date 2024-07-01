@@ -3,16 +3,10 @@ const userRoutes = require('./Src/Routes/UserRoutes');
 const cors = require('cors');
 const app = express();
 
-app.use(cors({
-    origin: 'https://scrumboard-project.vercel.app/',
-    methods: 'GET,POST,PUT,DELETE',
-    allowedHeaders: 'Content-Type,Authorization'
-}));
 
 app.use(express.json());
 
 app.use(userRoutes); // Use userRoutes middleware
-
 app.get('/', (req, res) => {
     res.send('I am here');
 });
