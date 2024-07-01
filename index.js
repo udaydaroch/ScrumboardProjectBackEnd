@@ -6,7 +6,7 @@ const app = express();
 
 
 
-app.use(express.json());
+app.use(allowCors);
 
 app.use(userRoutes); // Use userRoutes middleware
 app.get('/', (req, res) => {
