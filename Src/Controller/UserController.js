@@ -18,6 +18,18 @@ async function login (req, res) {
     res.status(200).json({userId: userInfo[0].id, token: token, isAdmin: userInfo[0].is_admin});
 }
 
+
+async function logout(req, res) {
+    const authToken = req.headers["x-authorization"] || req.headers["X-Authorization"] || req.headers["x-Authorization"];
+    const existingUser = await user.findByToken(authToken);
+    if(!authToken || !existingUser) {
+        res.status(401).json({error: "Invalid token"});
+        return;
+    }
+    await user.resetToken(authToken);
+    res.status(200).json({message: "Logged out"});
+}
+
 async function getUsers(req, res) {
     const users = await user.getUsers();
     res.status(200).json(users);
@@ -28,4 +40,4 @@ function generateRandomToken() {
 }
 
 
-module.exports = {login,getUsers};
+module.exports = {login,getUsers,logout};
