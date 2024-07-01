@@ -1,21 +1,18 @@
 {
   "version": 2,
-
   "builds": [
     { "src": "index.js", "use": "@vercel/node" }
   ],
-
   "routes": [
     { "src": "/(.*)", "dest": "/index.js" }
   ],
-
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
         {
           "key": "Access-Control-Allow-Credentials",
-          "value": "true"
+          "value": "false"
         },
         {
           "key": "Access-Control-Allow-Origin",
