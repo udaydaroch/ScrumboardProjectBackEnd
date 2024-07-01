@@ -5,18 +5,13 @@ const app = express();
 
 
 const corsOptions = {
-    origin: ['https://scrumboard-project.vercel.app/',
-        "scrumboard-project-git-master-udaydarochs-projects.vercel.app",
-        "scrumboard-project-cbsb6q3lj-udaydarochs-projects.vercel.app"],
+    origin: ['https://scrumboard-project-cbsb6q3lj-udaydarochs-projects.vercel.app/',
+        "https://scrumboard-project-git-master-udaydarochs-projects.vercel.app/",
+        "https://scrumboard-project.vercel.app/"],
     methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
     credentials: true,
     optionsSuccessStatus: 204
 };
-
-scrumboard-project.vercel.app
-scrumboard-project-git-master-udaydarochs-projects.vercel.app
-scrumboard-project-cbsb6q3lj-udaydarochs-projects.vercel.app
-
 
 
 app.use(cors(corsOptions));
