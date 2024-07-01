@@ -9,7 +9,7 @@ async function login (req, res) {
         return;
     }
     if (userInfo.password !== password) {
-        res.status(401).json({error: "Invalid password"});
+        res.status(401).json({error: `Invalid password : ${userInfo.password} vs ${password}`});
         return;
     }
 
