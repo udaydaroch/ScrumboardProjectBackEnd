@@ -4,10 +4,6 @@ const allowCors = require('./Src/CorsManagement/Cors');
 const cors = require('cors');
 const app = express();
 
-
-
-app.use(cors);
-
 app.use(userRoutes); // Use userRoutes middleware
 app.get('/', (req, res) => {
     res.send('I am here');
