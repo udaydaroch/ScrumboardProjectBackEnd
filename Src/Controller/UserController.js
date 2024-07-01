@@ -15,7 +15,7 @@ async function login (req, res) {
 
     const token = generateRandomToken();
     await user.updateToken(email, token);
-    res.status(200).json({userId: userInfo.id, "token": token, isAdmin: userInfo.isAdmin});
+    res.status(200).json({userId: userInfo[0].id, token: token, isAdmin: userInfo[0].isAdmin});
 }
 
 async function getUsers(req, res) {
