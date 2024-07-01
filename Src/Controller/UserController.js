@@ -4,11 +4,11 @@ const user = require("../Model/UserModel");
 async function login (req, res) {
     const {email, password} = req.body;
     const userInfo = await user.findByEmail(email);
-    if (!userInfo) {
+    if (!userInfo[0]) {
         res.status(401).json({error: "Invalid email"});
         return;
     }
-    if (userInfo.password !== password) {
+    if (userInfo[0].password !== password) {
         res.status(401).json({error: `Invalid password : ${userInfo.password} vs ${password}`});
         return;
     }
