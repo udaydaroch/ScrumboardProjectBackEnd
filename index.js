@@ -1,10 +1,10 @@
 const express = require('express');
 const userRoutes = require('./Src/Routes/UserRoutes');
-const cors = require('./Src/CorsManagement/Cors');
+const allowCors = require('./Src/CorsManagement/Cors');
 const app = express();
 
 
-app.use(cors)
+app.use(allowCors)
 app.use(express.json());
 
 app.use(userRoutes); // Use userRoutes middleware
