@@ -1,21 +1,8 @@
 const express = require('express');
 const userRoutes = require('./Src/Routes/UserRoutes');
-const cors = require("cors")
 const app = express();
 
 
-const corsOptions = {
-    origin: ['https://scrumboard-project-cbsb6q3lj-udaydarochs-projects.vercel.app/',
-            "https://scrumboard-project-git-master-udaydarochs-projects.vercel.app/",
-            "https://scrumboard-project.vercel.app/"]
-    ,
-    methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
-    credentials: true,
-    optionsSuccessStatus: 204,
-    allowedHeaders: ['Content-Type', 'Authorization']
-};
-
-app.use(cors(corsOptions));
 
 app.use(userRoutes);
 
