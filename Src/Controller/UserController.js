@@ -18,10 +18,14 @@ async function login (req, res) {
     res.status(200).json({userId: userInfo.id, "token": token, isAdmin: userInfo.isAdmin});
 }
 
+async function getUsers(req, res) {
+    const users = await user.getUsers();
+    res.status(200).json(users);
+}
 function generateRandomToken() {
     const value = randomBytes(16);
     return value.toString('hex');
 }
 
 
-module.exports = {login};
+module.exports = {login,getUsers};
