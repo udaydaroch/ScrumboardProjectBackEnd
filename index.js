@@ -1,6 +1,6 @@
 const express = require('express');
 const userRoutes = require('./Src/Routes/UserRoutes');
-const cors = require("cors")
+const cors = require("./Src/CorsManagement/Cors")
 const app = express();
 
 app.use(cors); // Use cors middleware first
@@ -14,11 +14,3 @@ const port = process.env.PORT || 3000;
 app.listen(port, () =>
     console.log(`Server is running on http://localhost:${port}`)
 );
-
-
-
-
-// Your routes
-app.listen(3000, () => {
-    console.log('Server running on port 3000');
-});
