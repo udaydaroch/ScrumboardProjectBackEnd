@@ -3,11 +3,11 @@ const userRoutes = require('./Src/Routes/UserRoutes');
 const cors = require('cors');
 const app = express();
 
-/*app.use(cors({
-    origin: 'https://scrumboard-project-cbsb6q3lj-udaydarochs-projects.vercel.app/',
+app.use(cors({
+    origin: 'https://scrumboard-project.vercel.app/',
     methods: 'GET,POST,PUT,DELETE',
     allowedHeaders: 'Content-Type,Authorization'
-}));*/
+}));
 
 app.use(express.json());
 
