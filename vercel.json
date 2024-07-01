@@ -16,7 +16,7 @@
         },
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://scrumboard-project-back-ojxejef95-udaydarochs-projects.vercel.app/"
+          "value": "https://scrumboard-project.vercel.app"
         },
         {
           "key": "Access-Control-Allow-Methods",
