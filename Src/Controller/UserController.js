@@ -4,6 +4,7 @@ const user = require("../Model/UserModel");
 async function login (req, res) {
     const {email, password} = req.body;
     const userInfo = await user.findByEmail(email);
+    console.log(userInfo, "userInfo");
     if (!userInfo[0]) {
         res.status(401).json({error: "Invalid email"});
         return;
@@ -15,7 +16,7 @@ async function login (req, res) {
     const token = generateRandomToken();
     await user.updateToken(email, token);
 
-    const newUser = await user.getUsers(userInfo[0].id)
+    const newUser = await user.getUser(userInfo[0].id)
     console.log(newUser);
     res.status(200).json({userId: userInfo[0].id, token: token, isAdmin: newUser[0].is_admin, teamId: newUser[0].team_id});
 }

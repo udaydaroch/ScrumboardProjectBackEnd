@@ -4,6 +4,10 @@ async function getUsers() {
     return await sql`SELECT * FROM users`;
 }
 
+async function getUser(id) {
+    return await sql`SELECT * FROM users where id = ${id}`;
+}
+
 async function findByEmail(email) {
     return await sql`SELECT * FROM users WHERE email = ${email}`;
 }
@@ -19,5 +23,5 @@ async function updateToken(email, token) {
 async function resetToken(id) {
     return await sql`UPDATE users SET auth_token = null WHERE id = ${id}`;
 }
-module.exports = {getUsers, findByEmail,findByToken, updateToken, resetToken};
+module.exports = {getUser, findByEmail,findByToken, updateToken, resetToken};
 
