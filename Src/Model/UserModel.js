@@ -9,14 +9,15 @@ async function findByEmail(email) {
 }
 
 async function findByToken(token) {
+    console.log(token);
     return await sql`SELECT * FROM users WHERE auth_token = ${token}`;
 }
 async function updateToken(email, token) {
     return await sql`UPDATE users SET auth_token = ${token} WHERE email = ${email}`;
 }
 
-async function resetToken(email) {
-    return await sql`UPDATE users SET auth_token = null WHERE email = ${email}`;
+async function resetToken(id) {
+    return await sql`UPDATE users SET auth_token = null WHERE id = ${id}`;
 }
 module.exports = {getUsers, findByEmail,findByToken, updateToken, resetToken};
 

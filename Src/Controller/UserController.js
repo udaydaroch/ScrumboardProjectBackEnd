@@ -28,7 +28,7 @@ async function logout(req, res) {
         res.status(401).json({error: "Invalid token"});
         return;
     }
-    await user.resetToken(authToken);
+    await user.resetToken(existingUser[0].id);
     res.status(200).json({message: "Logged out"});
 }
 
