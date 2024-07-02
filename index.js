@@ -6,7 +6,7 @@ const cors = require('cors');
 const app = express();
 
 app.use(cors({
-    origin: ['https://scrumboard-project.vercel.app/*',
+    origin: ['https://scrumboard-project.vercel.app',
         'http://localhost:3000',
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
