@@ -1,9 +1,5 @@
 const sql = require('../../connection');
 
-async function getUsers() {
-    return await sql`SELECT * FROM users`;
-}
-
 async function getUser(id) {
     return await sql`SELECT * FROM users where id = ${id}`;
 }

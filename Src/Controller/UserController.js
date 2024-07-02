@@ -33,14 +33,10 @@ async function logout(req, res) {
     res.status(200).json({message: "Logged out"});
 }
 
-async function getUsers(req, res) {
-    const users = await user.getUsers();
-    res.status(200).json(users);
-}
 function generateRandomToken() {
     const value = randomBytes(16);
     return value.toString('hex');
 }
 
 
-module.exports = {login,getUsers,logout};
+module.exports = {login,logout};
