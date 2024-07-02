@@ -12,15 +12,17 @@ async function login (req, res) {
         res.status(401).json({error: `Invalid password : ${userInfo.password} vs ${password}`});
         return;
     }
-
     const token = generateRandomToken();
     await user.updateToken(email, token);
-    res.status(200).json({userId: userInfo[0].id, token: token, isAdmin: userInfo[0].is_admin});
+
+    const newUser = await user.getUsers(userInfo[0].id)
+    console.log(newUser);
+    res.status(200).json({userId: userInfo[0].id, token: token, isAdmin: newUser[0].is_admin, teamId: newUser[0].team_id});
 }
 
 
 async function logout(req, res) {
-    const authToken = req.headers["x-authorization"] || req.headers["X-Authorization"] || req.headers["x-Authorization"];
+    const authToken =  req.headers["x-authorization"] ;
     const existingUser = await user.findByToken(authToken);
     if(!authToken || !existingUser) {
         res.status(401).json({error: "Invalid token"});
