@@ -1,11 +1,12 @@
 const express = require('express');
 const userRoutes = require('./Src/Routes/UserRoutes');
+const teamRoutes = require('./Src/Routes/TeamRoutes');
+const boardRoutes = require('./Src/Routes/ScrumBoardRoutes');
 const cors = require('cors');
 const app = express();
 
-// Enable CORS for all routes
 app.use(cors({
-    origin: 'https://scrumboard-project.vercel.app',
+    origin: ['https://scrumboard-project.vercel.app', 'http://localhost:3000'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -13,7 +14,8 @@ app.use(cors({
 
 app.use(express.json());
 app.use(userRoutes);
-
+app.use(teamRoutes);
+app.use(boardRoutes);
 app.get('/', (req, res) => {
     res.send('I am here');
 });
