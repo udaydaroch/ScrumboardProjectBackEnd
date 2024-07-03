@@ -45,6 +45,52 @@ async function getScrumboardByDate(teamId, date) {
     return { ...scrumboard, tasks: tasksWithSubtasks };
 }
 
+async function getScrumboardByDateOnly( date) {
+
+    const scrumboardQuery = sql`
+        SELECT * FROM scrumboards WHERE date = ${date};
+    `;
+    let scrumboard = await scrumboardQuery;
+
+    if (scrumboard.length === 0) {
+        return {};
+    }
+
+    scrumboard = scrumboard[0];
+
+    const tasksQuery = sql`
+        SELECT * FROM tasks WHERE scrumboard_id = ${scrumboard.id};
+    `;
+    const tasks = await tasksQuery;
+
+    if (tasks.length === 0) {
+        return { ...scrumboard, tasks: [] };
+    }
+
+    const taskIds = tasks.map(task => task.id);
+
+    let whereClause = '';
+    taskIds.forEach((taskId, index) => {
+        if (index > 0) {
+            whereClause += ' OR ';
+        }
+        whereClause += `task_id = ${taskId}`;
+    });
+
+    const subtasksQuery = sql`
+        SELECT * FROM sub_tasks WHERE ${whereClause};
+    `;
+
+    const subtasks = await subtasksQuery;
+    const tasksWithSubtasks = tasks.map(task => {
+        const taskSubtasks = subtasks.filter(subtask => subtask.task_id === task.id);
+        return { ...task, subtasks: taskSubtasks };
+    });
+    console.log({ ...scrumboard, tasks: tasksWithSubtasks })
+    return { ...scrumboard, tasks: tasksWithSubtasks };
+}
+
+
 async function getScrumboard(scrumboardId) {
     const scrumboardQuery = sql`
         SELECT * FROM scrumboards WHERE id = ${scrumboardId};
@@ -124,4 +170,4 @@ async function addScrumboard(scrumboardData) {
     return scrumboardId;
 }
 
-module.exports = { addScrumboard, getScrumboard,getScrumboardByDate };
+module.exports = { addScrumboard, getScrumboard,getScrumboardByDate,getScrumboardByDateOnly };

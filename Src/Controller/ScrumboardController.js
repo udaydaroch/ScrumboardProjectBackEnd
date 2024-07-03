@@ -5,6 +5,25 @@ async function createBoard(req, res) {
     res.status(200).json(board);
 }
 
+ async function getBoardByDateOnly(req, res) {
+    if (!req.params.date) {
+        return res.status(400).json({message: 'date is required'});
+    }
+    if (!req.params.date.match(/^\d{4}-\d{2}-\d{2}$/)) {
+        return res.status(400).json({message: 'date is not in the correct format'});
+    }
+    if (!req.headers['x-authorization']) {
+        return res.status(401).json({message: 'Unauthorized'});
+    }
+    const ScrumUser = await user.findByToken(req.headers['x-authorization']);
+    if (!ScrumUser) {
+        return res.status(401).json({message: 'Unauthorized'});
+    }
+    const {date} = req.params;
+    const board = await Scrumboard.getScrumboardByDateOnly(date);
+    res.status(200).json(board);
+
+}
 async function getBoard(req, res) {
     const { id } = req.params;
     if (!id) {
@@ -49,4 +68,4 @@ async function getBoardByDate(req, res) {
     res.status(200).json(board);
 }
 
-module.exports = {createBoard,getBoard,getBoardByDate};
+module.exports = {createBoard,getBoard,getBoardByDate,getBoardByDateOnly};
