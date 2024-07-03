@@ -5,6 +5,6 @@ const user = require('../Controller/UserController');
 
 router.post('/login', user.login);
 router.post('/logout', user.logout);
-router.get('/getUserByTeam/:TeamId', user.getUserByTeamId);
+router.get('/getUserByTeam/:userId', user.getTeamByUserId);
 
 module.exports = router;

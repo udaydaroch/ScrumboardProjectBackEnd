@@ -38,20 +38,20 @@ function generateRandomToken() {
     return value.toString('hex');
 }
 
-async function getUserByTeamId(req, res) {
-    if (!req.params.teamId) {
+async function getTeamByUserId(req, res) {
+    if (!req.params.userId) {
         return res.status(400).json({message: 'teamId is required'});
     }
     if (!req.headers['x-authorization']) {
         return res.status(401).json({message: 'Unauthorized'});
     }
     const authToken = req.headers['x-authorization'];
-    const user = await user.findByToken(authToken);
-    if (!user) {
+    const user = await user.getUser(authToken);
+    if (!user || !user[0].id) {
         return res.status(401).json({message: 'Unauthorized'});
     }
-    const {teamId} = req.params;
-    return user.getUserByTeamId(teamId);
+    const {userId} = req.params;
+    return user.getUserTeamByUserId(userId);
 }
 
-module.exports = {login,logout,getUserByTeamId};
+module.exports = {login,logout,getTeamByUserId};
