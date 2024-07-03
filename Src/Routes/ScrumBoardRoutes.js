@@ -5,5 +5,5 @@ const ScrumBoard = require('../Controller/ScrumboardController');
 router.post('/setUpBoard', ScrumBoard.createBoard);
 router.get('/getBoard/:id', ScrumBoard.getBoard);
 router.get('/team/:teamId/getBoardByDate/:date', ScrumBoard.getBoardByDate);
-router.get('getBoardByDateOnly/:date', ScrumBoard.getBoardByDateOnly);
+router.get('/getBoardByDateOnly/:date', ScrumBoard.getBoardByDateOnly);
 module.exports = router;
