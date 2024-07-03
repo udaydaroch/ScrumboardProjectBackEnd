@@ -21,6 +21,7 @@ async function getBoard(req, res) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
     const board = await Scrumboard.getScrumboard(id);
+    console.log(board);
     res.status(200).json(board);
 }
 

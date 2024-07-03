@@ -1,7 +1,8 @@
 const team = require("../Model/TeamModel");
 const user = require("../Model/UserModel");
 async function getTeams(req, res) {
-    if (!req.headers['X-Authorization']) {
+    console.log(req.headers['x-authorization']);
+    if (!req.headers['x-authorization']) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
     const userInfo = await user.findByToken(req.headers['x-authorization']);
