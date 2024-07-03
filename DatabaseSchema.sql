@@ -69,3 +69,17 @@ INSERT INTO scrumboards (name, team_id) VALUES
                                             ('Scrumboard 1', 1),
                                             ('Scrumboard 2', 2),
                                             ('Scrumboard 3', 3);
+CREATE TABLE tasks_users (
+                             task_id INTEGER NOT NULL,
+                             user_id INTEGER NOT NULL,
+                             PRIMARY KEY (task_id, user_id),
+                             FOREIGN KEY (task_id) REFERENCES tasks(id),
+                             FOREIGN KEY (user_id) REFERENCES users(id)
+);
+CREATE TABLE sub_tasks_users (
+                                 sub_task_id INTEGER NOT NULL,
+                                 user_id INTEGER NOT NULL,
+                                 PRIMARY KEY (sub_task_id, user_id),
+                                 FOREIGN KEY (sub_task_id) REFERENCES sub_tasks(id),
+                                 FOREIGN KEY (user_id) REFERENCES users(id)
+);
