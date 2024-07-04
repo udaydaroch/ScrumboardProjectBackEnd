@@ -40,7 +40,7 @@ async function setTaskUser(req, res) {
         return;
     }
 
-    const task = await Task.setTaskUser(req.body.taskId, req.params.userId, req.params.assignedUser);
+    const task = await Task.setTaskUser(req.params.taskId, req.params.userId, req.params.assignedUser);
     res.status(200).json(task);
 }
 

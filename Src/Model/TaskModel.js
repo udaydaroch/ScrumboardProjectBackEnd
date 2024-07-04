@@ -6,6 +6,7 @@ async function getTaskUser(taskId) {
 }
 
 async function setTaskUser(taskId, userId, assignedUser) {
+    console.log(taskId, userId, assignedUser);
     return await sql`INSERT INTO tasks_users (task_id, user_id, assigned_user_id ) VALUES (${taskId}, ${userId}, ${assignedUser})`;
 }
 
