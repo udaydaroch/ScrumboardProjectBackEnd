@@ -47,11 +47,12 @@ async function getTeamByTeamId(req, res) {
     }
     const authToken = req.headers['x-authorization'];
     const scrumUser = await user.findByToken(authToken);
-    if (!scrumUser || !scrumUser[0].id) {
+    if (scrumUser.length === 0) {
         return res.status(401).json({message: 'Unauthorized'});
     }
     const {teamId} = req.params;
-    return await user.getTeamByTeamId(teamId);
+    const teamMember =  await user.getTeamByTeamId(teamId);
+    res.status(200).json(teamMember);
 }
 
 module.exports = {login,logout,getTeamByTeamId};

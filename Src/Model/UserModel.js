@@ -12,7 +12,6 @@ async function findByEmail(email) {
 }
 
 async function findByToken(token) {
-    console.log(token);
     return await sql`SELECT * FROM users WHERE auth_token = ${token}`;
 }
 async function updateToken(email, token) {
