@@ -4,10 +4,10 @@ async function getUser(id) {
     return await sql`SELECT * FROM users where id = ${id}`;
 }
 
-async function getUserTeamByUserId(UserId) {
-    const userTeam = await sql`SELECT * FROM users where id = ${UserId}`;
-    const teamid = userTeam[0].team_id;
-    return await sql`SELECT * FROM teams where team_id = ${teamid}`;
+async function getTeamByTeamId(teamId) {
+    const team = await sql`SELECT * FROM users where team_id = ${teamId}`
+    console.log(team);
+    return team;
 }
 async function findByEmail(email) {
     return await sql`SELECT * FROM users WHERE email = ${email}`;
@@ -24,5 +24,5 @@ async function updateToken(email, token) {
 async function resetToken(id) {
     return await sql`UPDATE users SET auth_token = null WHERE id = ${id}`;
 }
-module.exports = {getUser, findByEmail,findByToken,getUserTeamByUserId, updateToken, resetToken};
+module.exports = {getUser, findByEmail,findByToken,getTeamByTeamId, updateToken, resetToken};
 
