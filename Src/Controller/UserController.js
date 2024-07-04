@@ -51,7 +51,7 @@ async function getTeamByTeamId(req, res) {
         return res.status(401).json({message: 'Unauthorized'});
     }
     const {teamId} = req.params;
-    return user.getTeamByTeamId(teamId);
+    return await user.getTeamByTeamId(teamId);
 }
 
 module.exports = {login,logout,getTeamByTeamId};

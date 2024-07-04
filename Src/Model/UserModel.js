@@ -5,9 +5,7 @@ async function getUser(id) {
 }
 
 async function getTeamByTeamId(teamId) {
-    const team = await sql`SELECT * FROM users where team_id = ${teamId}`
-    console.log(team);
-    return team;
+    return await sql`SELECT * FROM users where team_id = ${teamId}`;
 }
 async function findByEmail(email) {
     return await sql`SELECT * FROM users WHERE email = ${email}`;
