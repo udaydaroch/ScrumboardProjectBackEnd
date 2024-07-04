@@ -2,6 +2,7 @@ const {randomBytes} = require("node:crypto");
 const Task = require("../Model/TaskModel");
 const user = require("../Model/UserModel");
 async function getTaskUser(req, res) {
+    console.log(req.params.taskId, "taskId")
     if(!req.params.taskId ) {
         res.status(400).json({message: 'taskId are required'})
         return;

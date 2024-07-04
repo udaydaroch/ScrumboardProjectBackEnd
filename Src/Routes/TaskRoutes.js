@@ -4,6 +4,6 @@ const task = require('../Controller/TaskController');
 
 router.get('/getTaskUser/:taskId', task.getTaskUser);
 router.post('/setTaskUser/task/:taskId/user/:userId/assigning/:assignedUser', task.setTaskUser);
-router.post('/removeTaskUser/:taskId', task.removeTaskUser);
+router.post('/removeTaskUser/:taskId/removedBy/:userId', task.removeTaskUser);
 
 module.exports = router;
