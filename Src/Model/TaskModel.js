@@ -5,8 +5,8 @@ async function getTaskUser(taskId) {
     return await sql`SELECT * FROM tasks_users WHERE task_id = ${taskId}`;
 }
 
-async function setTaskUser(taskId, userId) {
-    return await sql`INSERT INTO tasks_users (task_id, user_id) VALUES (${taskId}, ${userId})`;
+async function setTaskUser(taskId, userId, assignedUser) {
+    return await sql`INSERT INTO tasks_users (task_id, user_id, assigned_user_id ) VALUES (${taskId}, ${userId}, ${assignedUser})`;
 }
 
 async function removeTaskUser(taskId, userId) {

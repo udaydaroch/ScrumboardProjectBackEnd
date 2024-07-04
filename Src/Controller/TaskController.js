@@ -22,8 +22,9 @@ async function getTaskUser(req, res) {
 }
 
 async function setTaskUser(req, res) {
-    if (!req.params.taskId || !req.params.userId) {
-        res.status(400).json({message: 'taskId and userId are required'});
+
+    if (!req.params.taskId || !req.params.userId || !req.params.assignedUser) {
+        res.status(400).json({message: 'taskId. assignedUser, and userId are required'});
         return;
     }
 
@@ -39,7 +40,7 @@ async function setTaskUser(req, res) {
         return;
     }
 
-    const task = await Task.setTaskUser(req.body.taskId, req.params.userId);
+    const task = await Task.setTaskUser(req.body.taskId, req.params.userId, req.params.assignedUser);
     res.status(200).json(task);
 }
 
