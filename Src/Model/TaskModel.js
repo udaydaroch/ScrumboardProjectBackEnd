@@ -14,4 +14,8 @@ async function removeTaskUser(taskId, userId) {
     return await sql`DELETE FROM tasks_users WHERE task_id = ${taskId} AND user_id = ${userId}`;
 }
 
-module.exports = {getTaskUser, setTaskUser, removeTaskUser};
+async function moveTask(taskId, from, to) {
+    return await sql`UPDATE tasks SET position_on_board = ${to} WHERE id = ${taskId} AND position_on_board = ${from}`;
+}
+
+module.exports = {getTaskUser, setTaskUser, removeTaskUser, moveTask};

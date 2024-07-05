@@ -18,6 +18,7 @@ async function getTaskUser(req, res) {
         return;
     }
 
+
     const task = await Task.getTaskUser(req.params.taskId);
     res.status(200).json(task);
 }
@@ -64,4 +65,23 @@ async function removeTaskUser(req, res) {
     res.status(200).json(task);
 }
 
-module.exports = {getTaskUser, setTaskUser, removeTaskUser};
+async function moveTask(req, res) {
+    if (!req.params.taskId || !req.params.from || !req.params.to) {
+        res.status(400).json({message: 'taskId, from and to are required'});
+        return;
+    }
+    if (!req.headers['x-authorization']) {
+        res.status(401).json({message: 'Unauthorized'});
+        return;
+    }
+    const authToken = req.headers['x-authorization'];
+    const scrumUser = await user.findByToken(authToken);
+    if (scrumUser.length === 0) {
+        res.status(401).json({message: 'Unauthorized'});
+        return;
+    }
+    const task = await Task.moveTask(req.params.taskId, req.params.from, req.params.to);
+    res.status(200).json(task);
+}
+
+module.exports = {getTaskUser, setTaskUser, removeTaskUser, moveTask};
