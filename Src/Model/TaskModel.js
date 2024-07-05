@@ -15,7 +15,7 @@ async function removeTaskUser(taskId, userId) {
 }
 
 async function moveTask(taskId, from, to) {
-    return await sql`UPDATE tasks SET position_on_board = ${to} WHERE id = ${taskId} AND position_on_board = ${from}`;
+    return await sql`UPDATE tasks SET column_name = ${to} WHERE id = ${taskId} AND column_name = ${from}`;
 }
 
 module.exports = {getTaskUser, setTaskUser, removeTaskUser, moveTask};
