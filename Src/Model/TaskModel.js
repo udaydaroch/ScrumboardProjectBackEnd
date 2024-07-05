@@ -1,8 +1,14 @@
 const sql = require('../../connection');
-
+const user = require('./UserModel');
 
 async function getTaskUser(taskId) {
-    return await sql`SELECT * FROM tasks_users WHERE task_id = ${taskId}`;
+    const user =  await sql`SELECT * FROM tasks_users WHERE task_id = ${taskId}`;
+    if (user.length === 0) {
+        return {};
+    }
+    console.log(user);
+    const assignedUser = user[0].assigned_user_id;
+    return await sql `SELECT * FROM users WHERE id = ${assignedUser}`;
 }
 
 async function setTaskUser(taskId, userId, assignedUser) {
