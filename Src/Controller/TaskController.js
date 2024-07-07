@@ -18,8 +18,69 @@ async function getTaskUser(req, res) {
         return;
     }
 
+    const taskAssignedUser = await Task.getTaskUser(req.params.taskId);
+    res.status(200).json(taskAssignedUser);
+}
 
-    const task = await Task.getTaskUser(req.params.taskId);
+
+async function getTaskReviewer(req, res) {
+    if(!req.params.taskId ) {
+        res.status(400).json({message: 'taskId are required'})
+        return;
+    }
+    if(!req.headers['x-authorization']) {
+        res.status(401).json({message: 'Unauthorized'});
+        return;
+    }
+    const authToken = req.headers['x-authorization'];
+    const scrumUser = await user.findByToken(authToken);
+    if (scrumUser.length === 0) {
+        res.status(401).json({message: 'Unauthorized'});
+    }
+    const taskReviewer = await Task.getTaskReviewer(req.params.taskId);
+    res.status(200).json(taskReviewer);
+
+}
+
+async function setTaskReviewer(req, res) {
+    console.log(req.params);
+    if (!req.params.taskId || !req.params.userId || !req.params.reviewingUser) {
+        res.status(400).json({message: 'taskId. reviewingUser, and userId are required'});
+        return;
+    }
+
+    if (!req.headers['x-authorization']) {
+        res.status(401).json({message: 'Unauthorized'});
+        return;
+    }
+
+    const authToken = req.headers['x-authorization'];
+    const scrumUser = await user.findByToken(authToken);
+    if (scrumUser.length === 0) {
+        res.status(401).json({message: 'Unauthorized'});
+        return;
+    }
+
+    const task = await Task.setTaskReviewer(req.params.taskId, req.params.userId, req.params.reviewingUser);
+    res.status(200).json(task);
+}
+
+async function removeTaskReviewer(req, res) {
+    if (!req.params.taskId || !req.params.userId) {
+        res.status(400).json({message: 'taskId and userId are required'});
+        return;
+    }
+    if (!req.headers['x-authorization']) {
+        res.status(401).json({message: 'Unauthorized'});
+        return;
+    }
+    const authToken = req.headers['x-authorization'];
+    const scrumUser = await user.findByToken(authToken);
+    if (scrumUser.length === 0) {
+        res.status(401).json({message: 'Unauthorized'});
+        return;
+    }
+    const task = await Task.removeTaskReviewer(req.params.taskId, req.params.userId);
     res.status(200).json(task);
 }
 
@@ -84,4 +145,5 @@ async function moveTask(req, res) {
     res.status(200).json(task);
 }
 
-module.exports = {getTaskUser, setTaskUser, removeTaskUser, moveTask};
+module.exports = {getTaskUser, setTaskUser, removeTaskUser, moveTask,
+    getTaskReviewer, removeTaskReviewer, setTaskReviewer};
