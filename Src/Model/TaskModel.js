@@ -21,6 +21,7 @@ async function getTaskReviewer(taskId) {
     return await sql `SELECT * FROM users WHERE id = ${assignedUser}`;
 }
 
+
 async function setTaskReviewer(taskId, userId, reviewingUser) {
     console.log(taskId, userId, reviewingUser);
     console.log("user who setTask");

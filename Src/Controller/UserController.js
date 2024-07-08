@@ -55,4 +55,24 @@ async function getTeamByTeamId(req, res) {
     res.status(200).json(teamMember);
 }
 
-module.exports = {login,logout,getTeamByTeamId};
+async function getReviewerByTaskId(req, res) {
+    if (!req.params.taskId) {
+        return res.status(400).json({message: 'taskId is required'});
+    }
+    if (!req.params.teamId){
+        return res.status(400).json({message: 'teamId is required'});
+    }
+    if (!req.headers['x-authorization']) {
+        return res.status(401).json({message: 'Unauthorized'});
+    }
+    const authToken = req.headers['x-authorization'];
+    const scrumUser = await user.findByToken(authToken);
+    if (scrumUser.length === 0) {
+        return res.status(401).json({message: 'Unauthorized'});
+    }
+    const {taskId, teamId} = req.params;
+    const reviewers = await user.getReviewerByTaskId(taskId, teamId);
+    res.status(200).json(reviewers);
+}
+
+module.exports = {login,logout,getTeamByTeamId,getReviewerByTaskId};
