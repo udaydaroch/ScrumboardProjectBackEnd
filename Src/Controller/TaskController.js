@@ -66,7 +66,7 @@ async function setTaskReviewer(req, res) {
 }
 
 async function removeTaskReviewer(req, res) {
-    if (!req.params.taskId || !req.params.userId) {
+    if (!req.params.taskId || !req.params.userId || !req.params.reviewId) {
         res.status(400).json({message: 'taskId and userId are required'});
         return;
     }
@@ -80,7 +80,7 @@ async function removeTaskReviewer(req, res) {
         res.status(401).json({message: 'Unauthorized'});
         return;
     }
-    const task = await Task.removeTaskReviewer(req.params.taskId, req.params.userId);
+    const task = await Task.removeTaskReviewer(req.params.taskId, req.params.userId, req.params.reviewId);
     res.status(200).json(task);
 }
 
@@ -108,8 +108,8 @@ async function setTaskUser(req, res) {
 }
 
 async function removeTaskUser(req, res) {
-    if (!req.params.taskId || !req.params.userId) {
-        res.status(400).json({message: 'taskId and userId are required'});
+    if (!req.params.taskId || !req.params.userId || !req.params.assignedId) {
+        res.status(400).json({message: 'taskId, userId,and assignedId are required'});
         return;
     }
     if (!req.headers['x-authorization']) {
@@ -122,7 +122,8 @@ async function removeTaskUser(req, res) {
         res.status(401).json({message: 'Unauthorized'});
         return;
     }
-    const task = await Task.removeTaskUser(req.params.taskId, req.params.userId);
+    console.log("in herer");
+    const task = await Task.removeTaskUser(req.params.taskId, req.params.userId, req.params.assignedId);
     res.status(200).json(task);
 }
 

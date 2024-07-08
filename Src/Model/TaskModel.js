@@ -46,11 +46,12 @@ async function checkTaskExists(taskId) {
     return existingTask.length > 0;
 }
 
-async function removeTaskUser(taskId, userId) {
-    return await sql`UPDATE tasks_users SET assigned_user_id = NULL , user_who_set_assigned = ${userId} WHERE task_id = ${taskId} AND assigned_user_id = ${userId}`;
+async function removeTaskUser(taskId, userId, assignId) {
+    console.log(taskId, userId, assignId);
+    return await sql`UPDATE tasks_users SET assigned_user_id = NULL , user_who_set_assigned = ${userId} WHERE task_id = ${taskId} AND assigned_user_id = ${assignId}`;
 }
-async function removeTaskReviewer(taskId, userId) {
-    return await sql`UPDATE tasks_users SET reviewing_user_id = NULL , user_who_set_reviewer = ${userId} WHERE task_id = ${taskId} AND reviewing_user_id = ${userId}`;
+async function removeTaskReviewer(taskId, userId, reviewId) {
+    return await sql`UPDATE tasks_users SET reviewing_user_id = NULL , user_who_set_reviewer = ${userId} WHERE task_id = ${taskId} AND reviewing_user_id = ${reviewId}`;
 }
 
 async function moveTask(taskId, from, to) {
