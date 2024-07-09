@@ -58,4 +58,9 @@ async function moveTask(taskId, from, to) {
     return await sql`UPDATE tasks SET column_name = ${to} WHERE id = ${taskId} AND column_name = ${from}`;
 }
 
-module.exports = {getTaskUser, setTaskUser, removeTaskUser, moveTask, getTaskReviewer, setTaskReviewer,removeTaskReviewer};
+async function completeTask(taskId) {
+    return await sql`UPDATE tasks SET is_completed = true WHERE id = ${taskId}`;
+
+}
+
+module.exports = {completeTask, getTaskUser, setTaskUser, removeTaskUser, moveTask, getTaskReviewer, setTaskReviewer,removeTaskReviewer};
