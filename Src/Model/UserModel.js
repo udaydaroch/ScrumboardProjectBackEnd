@@ -9,17 +9,18 @@ async function getTeamByTeamId(teamId) {
 }
 
 async function getReviewerByTaskId(taskId, teamId) {
-
-    return await sql` SELECT *
-                      FROM users
-                      WHERE team_id = ${teamId} AND
-                          users.id NOT IN (
-                              SELECT COALESCE(reviewing_user_id, assigned_user_id) as userId
-                              FROM tasks_users
-                              WHERE task_id = ${taskId}
-                          )
+    console.log(taskId, teamId);
+    return await sql`
+        SELECT u.*
+        FROM users u
+                 LEFT JOIN tasks_users tu ON u.id = COALESCE(tu.assigned_user_id, tu.reviewing_user_id)
+        WHERE u.team_id = ${teamId}
+          AND tu.task_id = ${taskId}
+        
     `;
 }
+
+
 
 
 async function findByEmail(email) {
