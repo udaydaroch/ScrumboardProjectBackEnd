@@ -59,8 +59,11 @@ async function moveTask(taskId, from, to) {
 }
 
 async function completeTask(taskId) {
-    return await sql`UPDATE tasks SET is_completed = true WHERE id = ${taskId}`;
+    const currentStatus = await sql`SELECT is_completed FROM tasks WHERE id = ${taskId}`;
+    const newStatus = !currentStatus[0].is_completed;
 
+    return await sql`UPDATE tasks SET is_completed = ${newStatus} WHERE id = ${taskId}`;
 }
+
 
 module.exports = {completeTask, getTaskUser, setTaskUser, removeTaskUser, moveTask, getTaskReviewer, setTaskReviewer,removeTaskReviewer};
