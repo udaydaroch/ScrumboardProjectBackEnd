@@ -27,8 +27,6 @@ app.get('/', (req, res) => {
     res.send('ScrumBoard API');
 });
 
-app.options('*', cors());
-
 const port = process.env.PORT || 3000;
 app.listen(port, () =>
     console.log(`Server is running on http://localhost:${port}`)
