@@ -3,6 +3,7 @@ const userRoutes = require('./Src/Routes/UserRoutes');
 const teamRoutes = require('./Src/Routes/TeamRoutes');
 const boardRoutes = require('./Src/Routes/ScrumBoardRoutes');
 const taskRoutes = require('./Src/Routes/TaskRoutes');
+const subTaskRoutes = require('./Src/Routes/SubTaskRoutes');
 const cors = require('cors');
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(userRoutes);
 app.use(teamRoutes);
 app.use(boardRoutes);
 app.use(taskRoutes);
+app.user(subTaskRoutes)
 
 app.get('/', (req, res) => {
     res.send('ScrumBoard API');
