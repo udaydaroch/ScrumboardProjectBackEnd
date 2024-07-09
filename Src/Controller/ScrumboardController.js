@@ -1,6 +1,7 @@
 const Scrumboard = require("../Model/ScrumBoardModel");
 const user = require("../Model/UserModel");
 async function createBoard(req, res) {
+    console.log(req.params);
     const board = await Scrumboard.addScrumboard(req.body);
     res.status(200).json(board);
 }

@@ -6,6 +6,7 @@ const taskRoutes = require('./Src/Routes/TaskRoutes');
 const cors = require('cors');
 const app = express();
 
+
 app.use(cors({
     origin: ['https://scrumboard-project.vercel.app',
         'http://localhost:3000',
