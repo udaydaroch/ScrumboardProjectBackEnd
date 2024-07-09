@@ -21,7 +21,7 @@ app.use(userRoutes);
 app.use(teamRoutes);
 app.use(boardRoutes);
 app.use(taskRoutes);
-app.user(subTaskRoutes)
+app.use(subTaskRoutes)
 
 app.get('/', (req, res) => {
     res.send('ScrumBoard API');
